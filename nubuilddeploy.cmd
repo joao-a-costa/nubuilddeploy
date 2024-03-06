@@ -10,6 +10,7 @@ set "nuget_key=#YOUR_NUGET_KEY#"
 set "file_temp=tempfile.txt"
 set "file=AssemblyInfo.cs"
 set "file_path=%file%"
+set "branch=main"
 
 cd Properties
 
@@ -44,6 +45,7 @@ del "%temp_file%"
 
 msbuild "%project_base_csproj%" /p:Configuration=Release /p:Platform=x86
 msbuild "%project_base_csproj%" /p:Configuration=Release /p:Platform=AnyCPU
+git checkout %branch%
 git pull
 git commit -a -m "v%replace%" && git push
 nuget pack %project_base%.Lib.nuspec -Properties Configuration=Release;Platform=*
